@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ app.request.basepath }}/css/todolist.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <title>TodoList - {% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">   
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collpase" data-target="#mainNavigation">
+                                <span class="sr-only">Toggle Navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="PathHome" class="navbar-brand">Todo List</a>
+                        </div><!--NavbarHeader-->
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="signup">Signup</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="login">Log In</a></li>
+                            </ul><!-- NavbarRight-->
+                        </div><!--NavbarCollapse #mainNavigation-->
+                    </div><!--Container-fluid-->
+                </nav><!-- NavbarInverse-->
+            </div>
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+            <footer id="mainFooter">
+                <a href="home">TodoList - </a> Made with Silex, Twig, Composer, and a shitload of coffee
+            </footer>
+            <script src="{{ app.request.basepath }}/js/jquery-3.1.0.min.js"></script>
+            <script src="{{app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
