@@ -68,6 +68,14 @@ class User implements UserInterface {
            return $this->username;
        }
 
+       public function setEmail($email){
+           $this->email = $email;
+       }
+
+       public function getEmail(){
+           return $this->email;
+       }
+
        /**
         * @inheritDoc
         */

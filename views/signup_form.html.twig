@@ -1,0 +1,85 @@
+{% extends 'layout.html.twig'%}
+{% block title %} Sign Up {% endblock %}
+{% block content %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+<div class="alert alert-success">
+    <p class="text-center">
+        {{ flashMessage }} </br>
+        <a href="{{ path('login')}}"> Click here to login</a>
+    </p>
+</div>
+{% endfor %}
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+        {{
+            form_start(signupForm, { 'attr' : {
+                'class' : 'form-horizontal'
+            }})
+        }}
+        <fieldset>
+            <legend>{{ block('title')}}</legend>
+            <div class="form-group">
+                {{
+                    form_label(signupForm.username, null, { 'label_attr' : {
+                        'class' : 'col-xs-2 control-label'
+                    }})
+                }}
+                <div class="col-xs-10">
+                    {{ form_errors(signupForm.username) }}
+                    {{
+                        form_widget(signupForm.username, { 'attr' : {
+                            'class' : 'form-control'
+                        }})
+                    }}
+                </div>
+            </div><!--FormGroup Username-->
+            <div class="form-group">
+                {{
+                    form_label(signupForm.email, null, { 'label_attr' :{
+                        'class':'col-xs-2 control-label'
+                    }})
+                }}
+                <div class="col-xs-10">
+                    {{ form_errors(signupForm.email) }}
+                    {{
+                        form_widget(signupForm.email, { 'attr' : {
+                            'class':'control-form'
+                        }})
+                    }}
+                </div>
+            </div><!--FormGroup email-->        
+            <div class="form-group">
+                {{
+                    form_label(signupForm.password.first, null, { 'label_attr' :{ 'class' : 'col-xs-2 control-label'}})
+                }}
+                <div class="col-xs-10">
+                    {{ form_errors(signupForm.password.first) }}
+                    {{
+                        form_widget(signupForm.password.first, {'attr': {
+                            'class' : 'form-control'
+                        }})
+                    }}
+                </div>
+            </div><!--FormGroup passwordFirst-->
+            <div class="form-group">
+                {{
+                    form_label(signupForm.password.second, null, { 'label_attr' : { 'class' : 'col-xs-2 control-label'}})
+                }}
+                <div class="col-xs-10">
+                    {{ form_errors(signupForm.password.second) }}
+                    {{ form_widget(signupForm.password.second, {'attr': {
+                        'class' : 'form-control'
+                    }})
+                    }}
+                </div>
+            </div><!--FormGroup passwordSecond-->
+            <div class="form-group">
+                <div class="col-xs-6 col-xs-offset-3">
+                    <input type="submit" class="btn btn-primary" value="Sign up">
+                </div>
+            </div>
+        </fieldset>
+            {{ form_end(signupForm) }}
+    </div><!--XS-12-->
+</div><!--Row-->
+{% endblock %}

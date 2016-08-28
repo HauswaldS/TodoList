@@ -19,32 +19,37 @@ $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
-// Allow usage of path('')
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+//Add extension "Text" to TwigServiceProvider
+$app['twig'] = $app->share($app->extend('twig', function (Twig_Environment $twig, $app){
+    $twig->addExtension(new Twig_Extensions_Extension_Text());
+    return $twig;
+}));
 //Form Validator
 $app->register(new Silex\Provider\ValidatorServiceProvider());
+// Allow usage of path('')
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 //Silex Session
 $app->register(new Silex\Provider\SessionServiceProvider());
 //Silex security
-// $app->register(new Silex\Provider\SecurityServiceProvider(), array(
-//     'security.firewalls' => array(
-//         'secured' => array(
-//             'pattern' => '^/',
-//             'anonymous' => true,
-//             'logout' => true,
-//             'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
-//             'users' => $app->share(function () use ($app){
-//                 return new MicroCMS\DAO\UserDAO($app['db']);
-//             }),
-//         ),
-//     ),
-//     'security.role.hierarchy' => array(
-//         'ROLE_ADMIN' => array('ROLE_USER'),
-//     ),
-//     'security.access_rules' => array(
-//         array('^/dashboard', 'ROLE_USER'),
-//     ),
-// ));
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'secured' => array(
+            'pattern' => '^/',
+            'anonymous' => true,
+            'logout' => true,
+            'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
+            'users' => $app->share(function () use ($app){
+                return new TodoList\DAO\UserDAO($app['db']);
+            }),
+        ),
+    ),
+    'security.role.hierarchy' => array(
+        'ROLE_ADMIN' => array('ROLE_USER'),
+    ),
+    'security.access_rules' => array(
+        array('^/dashboard', 'ROLE_USER'),
+    ),
+));
 //Implement Monolog to create logfiles
 $app->register(new Silex\Provider\MonologServiceProvider(), array (
     'monolog.logfile' => __DIR__.'/../var/logs/microcms.log',
@@ -63,6 +68,10 @@ if(isset($app['debug']) && $app['debug']){
 
 // Register services.
 
+//UserDAO
+$app['dao.user'] = $app->share(function ($app){
+    return new TodoList\DAO\UserDAO($app['db']);
+});
 
 
 // //Register JSON data decoder for JSON requests

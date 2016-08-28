@@ -7,8 +7,8 @@ $app['db.options'] = array(
     'port'     => '3306',
     'dbname'   => 'todolist',
     'user'     => 'todolist_admin',
-    'password' => 'SecretPassword',
+    'password' => 'secret',
 );
 //Enable debugguing
 $app['debug'] = true;
-$app['monolog.level'] ="WARNING";
+$app['monolog.level'] ="WARNING"; 

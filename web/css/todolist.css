@@ -1,0 +1,8 @@
+#mainFooter p, #mainFooter a {
+    color:white!important;
+}
+
+.navbar {
+    border-radius:0!important;
+    border:0;
+}

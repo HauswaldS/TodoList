@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UnsupportUserException;
 use TodoList\DAO\DAO;
 use TodoList\Domain\User;
 
-class UserDAO extends DAO implements UserInterfaceProvider {
+class UserDAO extends DAO implements UserProviderInterface {
 
     /**
      * Saves a user into the database
@@ -40,12 +40,12 @@ class UserDAO extends DAO implements UserInterfaceProvider {
     /**
      * @inheritDoc
      */ 
-    public function loadUserByName($username){
+    public function loadUserByUsername($username){
          $sql = "SELECT * FROM t_user WHERE user_name = ?";
          $row = $this->getDb()->fetchAssoc($sql, array($username));
          
          if($row){
-            return $this->buildObjectDomain($row);
+            return $this->buildDomainObject($row);
          } else {
              throw new \Exception('No user matching name : '.$username);
          }
@@ -65,15 +65,15 @@ class UserDAO extends DAO implements UserInterfaceProvider {
     /**
      * @inheritDoc
      */
-    public function supportsClass(UserInterface $user){
-        return "TodoList\Domain\User" === $user;
+    public function supportsClass($class){
+        return "TodoList\Domain\User" === $class;
     } 
 
 
-    protected function buildObjectDomain(array $row){
+    protected function buildDomainObject(array $row){
         $user = new User();
         $user->setId($row['user_id']);
-        $user->setUsername($row['user_username']);
+        $user->setUsername($row['user_name']);
         $user->setEmail($row['user_email']);
         $user->setSalt($row['user_salt']);
         $user->setPassword($row['user_password']);

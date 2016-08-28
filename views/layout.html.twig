@@ -20,14 +20,22 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a href="PathHome" class="navbar-brand">Todo List</a>
+                            <a href="{{path('home')}}" class="navbar-brand">Todo List</a>
                         </div><!--NavbarHeader-->
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav">
-                                <li><a href="signup">Signup</a></li>
+                            {% if app.user and ('IS_AUTHENTICATED_FULLY') %}
+                                <li><a href="dashboardPath">Dashboard</a></li>
+                            {% else %}
+                                <li><a href="{{ path('signup')}}">Signup</a></li>
+                            {% endif %}
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
+                            {% if app.user and ('IS_AUTHENTICATED_FULLY') %}
+                                <li><a href="{{ path('logout')}}">Welcome, {{ app.user.username }}</a></li>
+                            {% else %}                            
                                 <li><a href="login">Log In</a></li>
+                            {% endif %}
                             </ul><!-- NavbarRight-->
                         </div><!--NavbarCollapse #mainNavigation-->
                     </div><!--Container-fluid-->
@@ -36,8 +44,12 @@
             <div id="content">
                 {% block content %}{% endblock %}
             </div>
-            <footer id="mainFooter">
-                <a href="home">TodoList - </a> Made with Silex, Twig, Composer, and a shitload of coffee
+            <footer id="mainFooter" class="navbar navbar-inverse navbar-fixed-bottom">
+                <div class="container">
+                    <p class="navbar-text pull-left">
+                        <a href="{{path('home')}}">TodoList - </a> Made with Silex, Twig, Composer, and a shitload of coffee
+                    </p>
+                </div>
             </footer>
             <script src="{{ app.request.basepath }}/js/jquery-3.1.0.min.js"></script>
             <script src="{{app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
