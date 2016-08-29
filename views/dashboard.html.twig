@@ -1,0 +1,36 @@
+{% extends ('layout.html.twig')%}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+  <div class="row">  
+  {% if folders %}
+    <div class="col-md-6" id="dashboardTab"><h3>Folders</h3>       	
+      <!-- tabs left -->
+      <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+          <li><a href="#a" data-toggle="tab">One</a></li>
+          <li class="active"><a href="#b" data-toggle="tab">Two</a></li>
+          <li><a href="#c" data-toggle="tab">Twee</a></li>
+        </ul>
+        <div class="tab-content">
+         <div class="tab-pane active" id="a">Lorem ipsum dolor sit amet, charetra varius quam sit amet vulputate. 
+         Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero.</div>
+         <div class="tab-pane" id="b">Secondo sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+         Aliquam in felis sit amet augue.</div>
+         <div class="tab-pane" id="c">Thirdamuno, ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+         Quisque mauris augue, molestie tincidunt condimentum vitae. </div>
+        </div>
+      </div>
+      <!-- /tabs -->
+      {% else %}
+      <div class="container">
+        <div class="alert alert-warning"  style="font-size:2rem">
+          <span class="glyphicon glyphicon-exclamation-sign pull-left"></span>
+          <p class="text-center">
+              You don't have any folder yet<br/>
+              <a href="addFolderPath" class="text-center">Create one now !</a>
+          </p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+{% endblock %}

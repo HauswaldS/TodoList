@@ -8,3 +8,6 @@ $app->match('/signup', "TodoList\Controller\HomeController::signupAction")->bind
 
 //Login page 
 $app->match('/login', "TodoList\Controller\HomeController::loginAction")->bind('login');
+
+//Dasboard page 
+$app->get('/dashboard', "TodoList\Controller\DashboardController::indexAction")->bind('dashboard');
